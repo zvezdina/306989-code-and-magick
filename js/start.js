@@ -24,12 +24,20 @@ window.renderStatistics = function (ctx, names, times) {
     if (time < min) {
     	min = time;
     }
-  }
+  };
   
   var histoHeight = 150;
   var histoX = 40;
   var step = histoHeight / (max - min);
   var columnIndent = 50;
+
+  var color = function (name) {
+    if (name === 'Вы') {
+      return ctx.fillStyle = 'rgba (255, 0, 0, 1)';
+    } else {
+      return ctx.fillStyle = 'rgba(0, 0, (((Math.random() * 5) *50).toFixed(0), 1)';
+    }
+  };
 
   for (var i = 0; i < times.length; i++) {
     var name = names[i];
@@ -37,17 +45,12 @@ window.renderStatistics = function (ctx, names, times) {
 
     var height = step * (time - min);
 
-    ctx.fillText(time.toFixed(0), 150 + (histoX + columnIndent) * i, 70 + histoHeight - height);
-    if (name === 'Вы') {
-    	ctx.fillStyle = 'rgba (255, 0, 0, 1)';
-    } else {
-    	ctx.fillStyle = 'rgba(0, 0, ', ((Math.random() * 5) *50).toFixed(0),', 1 )';
-    }
-
+    ctx.fillText(time.toFixed(0), 150 + (histoX + columnIndent) * i, 77 + histoHeight - height);
+    color (name);
     ctx.fillRect(150 + (histoX + columnIndent) * i, 80 + histoHeight - height, 40, height);
     ctx.fillStyle = '#000';
     ctx.fillText(name, 150 + (histoX + columnIndent) * i, 80 + histoHeight + 20);
-  }
+
+  };
 };
 
-var canvas = document.querySelector('canvas');
